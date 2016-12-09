@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
+  before_action :correct_user, only: [:edit, :update]
 
   def show
-   @user = User.find(params[:id])
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.order(created_at: :desc)
   end
   
   def new
@@ -18,11 +20,27 @@ class UsersController < ApplicationController
     end
   end
   
-  private
+  def edit
+  end
   
+  def update
+    if @user.update(user_params)
+      redirect_to @user , notice:'メッセージを編集しました'
+    else
+      render 'edit'
+    end
+  end
+
+  private
+
   def user_params
     params.require(:user).permit(:name, :email, :password,
                                  :password_confirmation)
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_path if @user != currect_user
   end
 end
 

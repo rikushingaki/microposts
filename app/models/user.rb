@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
 	validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGAX },
                     uniqueness: {case_sensitive: false }
+  has_many :microposts
+  validates :location, length: { maximum: 25 } , presence: true
 end
