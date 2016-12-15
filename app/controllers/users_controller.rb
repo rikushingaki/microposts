@@ -42,5 +42,19 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to root_path if @user != current_user
   end
+  
+  def followings
+    @title = 'followings'
+    @user = User.find(params[:id])
+    @user = @user.following_users
+    render 'show_follow'
+  end
+  
+  def followers
+    @title = 'followers'
+    @user = User.find(params[:id])
+    @user = @user.follower_users
+    render 'show_follow'
+  end
 end
 
