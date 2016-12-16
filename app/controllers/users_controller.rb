@@ -30,18 +30,6 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :location,
-                                 :password_confirmation)
-  end
-  
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to root_path if @user != current_user
-  end
   
   def followings
     @title = 'followings'
@@ -55,6 +43,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user = @user.follower_users
     render 'show_follow'
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :location,
+                                 :password_confirmation)
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_path if @user != current_user
   end
 end
 
