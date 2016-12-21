@@ -32,24 +32,16 @@ class UsersController < ApplicationController
   end
   
   def followings
-    render 'show_follow'
-  end
-  
-  def followers
-    render 'show_follow'
-  end
-  
-  def followings
     @title = 'followings'
     @user = User.find(params[:id])
-    @user = @user.following_users
+    @users = @user.following_users
     render 'show_follow'
   end
   
   def followers
     @title = 'followers'
     @user = User.find(params[:id])
-    @user = @user.follower_users
+    @users = @user.follower_users
     render 'show_follow'
   end
 
